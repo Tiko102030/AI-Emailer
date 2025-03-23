@@ -8,14 +8,34 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from email.header import decode_header
 
-# ----------------------------------- Email Credentials ----------------------------------- #
 imap_server = "imap.zoho.com"
 smtp_server = "smtp.zoho.com" 
 smtp_port = 587 
 sender_email = "tikosai@zohomail.com" 
-app_password = "jYEZPiqV3j8R" 
 
-reciever_email = "tikhon102030@gmail.com" 
+
+def read_password_from_file(file_path):
+    """Read the password from a .txt file"""
+    try:
+        with open(file_path, 'r') as file:
+            password = file.readline().strip()
+            return password
+    except FileNotFoundError:
+        print("Error: The file containing the password was not found.")
+        return None
+    except Exception as e:
+        print(f"Error: {e}")
+        return None
+
+file_path = "app_password.txt"
+
+app_password = read_password_from_file(file_path)
+
+if app_password:
+    print("Password retrieved successfully.")
+else:
+    print("Error retrieving the password.")
+
 
 
 def connect_to_mail():
